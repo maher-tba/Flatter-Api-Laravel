@@ -14,9 +14,9 @@
                 @endif
 
             </div>
-            @can('create')
-                <button type="submit" class="btn btn-primary mt-3">انشاء</button>
-            @endcan
+            <button type="submit" class="btn btn-primary mt-3">انشاء</button>
+            <!-- @can('create')
+            @endcan -->
         </form>
     </div>
 </div>
