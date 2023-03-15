@@ -35,23 +35,17 @@ class TaskController extends BaseController
         $validator = Validator::make($input, [
             'title' => 'required',
             'description' => 'required',
-            'is_complete' => 'required',
-            'author' => 'required',
         ]);
    
         if($validator->fails()){
             return $this->sendError('Validation Error.', $validator->errors());       
         }
-        //return Auth::user();
+        
         //$task = Task::create($input);
-        // $task = Task::create([
-        //     'title' => $validator['title'],
-        //     'is_complete' => false,
-        //     'author' => Auth::user()->name,
-        // ]);
 
         $task = Auth::user()->tasks()->create([
             'title' => $request['title'],
+            'description' => $request['description'],
             'is_complete' => false,
             'author' => Auth::user()->name,
         ]);
