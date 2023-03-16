@@ -18,6 +18,7 @@ class TaskController extends BaseController
      */
     public function index()
     {
+        dd("inside tasks");
         $tasks = Task::all();
     
         return $this->sendResponse(TaskResource::collection($tasks), 'Tasks retrieved successfully.');
@@ -84,8 +85,6 @@ class TaskController extends BaseController
         $validator = Validator::make($input, [
             'title' => 'required',
             'description' => 'required',
-            'is_complete' => 'required',
-            'author' => 'required',
         ]);
    
         if($validator->fails()){
@@ -94,8 +93,8 @@ class TaskController extends BaseController
    
         $task->title = $input['title'];
         $task->description = $input['description'];
-        $task->is_complete = $input['is_complete'];
-        $task->author = $input['author'];
+        $task->is_complete = false;
+        $task->author = Auth::user()->name;
         $task->save();
    
         return $this->sendResponse(new TaskResource($task), 'Task updated successfully.');
